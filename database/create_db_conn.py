@@ -1,17 +1,20 @@
-import psycopg2
-from psycopg2 import OperationalError
+import mysql.connector
+from mysql.connector import Error
+from execute_queries import query_to_db
 
-def create_connection(db_name, db_user, db_pwd, db_host, db_port):
+def create_connection(host_name, user_name, user_pwd, db=None):
     conn = None
     try:
-        conn = psycopg2.connect(
-            database=db_name,
-            host=db_host,
-            user=db_user,
-            password=db_pwd,
-            port=db_port)
-        
-        print("Connection to PosgreSQL success")
-        return conn
-    except OperationalError as e:
-        print(f"The error {e} occured")
+        conn = mysql.connector.connect(
+            host=host_name,
+            user=user_name,
+            passwd=user_pwd,
+            database=db
+        )
+        print("Connection to DB successful")
+    except Error as e:
+        print(f"Error: {e} occured")
+    
+    return conn
+
+# query_to_db(create_connection("localhost","root",""))
