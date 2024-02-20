@@ -1,11 +1,8 @@
-from mongoengine import connect
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from user import User
-from uuid import uuid4
 from datetime import datetime
 import os
-from environs import Env
 from env_var_file import set_env
 
 set_env()
@@ -23,11 +20,16 @@ try:
 except Exception as e:
     print(e)
 
-# dani = User(
-#     primary_key=uuid4(),
-#     username="dani",
-#     password="1234567",
-#     created_at=datetime.now()
-# )
+# Opening database users_db
+db = client["users_db"]
 
-# dani.save()
+dani = User(username="Dani", password="1234567", created_at=datetime.now())
+
+# Creating a users collection
+users = db.users
+
+user_id = users.insert_one(dani.format_user()).inserted_id
+
+print("UserID:",user_id)
+
+print(db.list_collection_names())
