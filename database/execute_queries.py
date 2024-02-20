@@ -5,7 +5,7 @@ def query_to_db(connection, query=None):
     cur = connection.cursor()
     try:
         if query is None:
-            cur.execute("CREATE DATABASE IF NOT EXISTS users_db")
+            cur.execute("CREATE DATABASE IF NOT EXISTS object_detection")
         else:
             cur.execute(query)
         print("Query successfully executed")

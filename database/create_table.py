@@ -1,35 +1,15 @@
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-from user import User
-from datetime import datetime
-import os
-from env_var_file import set_env
+from create_db_conn import create_connection
+from execute_queries import query_to_db
 
-set_env()
+def save_table():
+    conn = create_connection("localhost","root","","object_detection")
+    SQL="""CREATE TABLE IF NOT EXISTS users (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(255),
+        password LONGBLOB,
+        created_at DATETIME,
+        updated_at DATETIME
+    )"""
+    query_to_db(conn, SQL)
 
-username=os.getenv("atlas_user")
-password=os.getenv("atlas_pwd")
-
-uri="mongodb+srv://"+username+":"+password+"@objectdetection.mmi1vuf.mongodb.net/?retryWrites=true&w=majority"
-
-client = MongoClient(uri, server_api=ServerApi('1'))
-
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
-
-# Opening database users_db
-db = client["users_db"]
-
-dani = User(username="Dani", password="1234567", created_at=datetime.now())
-
-# Creating a users collection
-users = db.users
-
-user_id = users.insert_one(dani.format_user()).inserted_id
-
-print("UserID:",user_id)
-
-print(db.list_collection_names())
+# save_table()
