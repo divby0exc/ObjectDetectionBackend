@@ -1,12 +1,7 @@
-from mongoengine import Document, DateTimeField, StringField, UUIDField
-import base64
 
-class User(Document):
-    username = StringField(required=True, unique=True, min_length=3, max_length=20)
-    password = StringField(required=True, min_length=6, max_length=20)
-    created_at = DateTimeField()
-    updated_at = DateTimeField()
-
-    def format_user(self):
-        self.password=base64.b64encode(bytes(self.password))
-        return self.to_mongo()
+class User():
+    def __init__(self,t_user, t_pwd, t_created_at=None, t_updated_at=None) -> None:
+        username=t_user
+        password=t_pwd
+        created_at=t_created_at
+        updated_at=t_updated_at
