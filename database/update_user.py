@@ -1,9 +1,11 @@
-import base64
+from create_db_conn import create_connection
+from datetime import datetime
 
-enc = base64.b64encode(b"soi*(&*&%^cjhwdoij4903")
-
-print(enc)
-
-dec = base64.b64decode(enc)
-
-print(dec)
+def update_user(new_pwd:str, username:str):
+    conn=create_connection("localhost","root","","object_detection")
+    cur=conn.cursor()
+    sql=("UPDATE users SET updated_at=%s, password=%s "
+        "WHERE username=%s")
+    vals=(datetime.now(), new_pwd, username)
+    cur.execute(sql,vals)
+    conn.commit()
