@@ -2,11 +2,11 @@ from create_db_conn import create_connection
 from execute_queries import query_to_db
 from mysql.connector import Error
 
-def fetch_user(user_to_search:str):
-    user_to_search = (user_to_search,)
+def fetch_user(user_to_search:str, user_pwd:str):
+    user_to_search = (user_to_search, user_pwd)
     conn = create_connection("localhost", "root", "", "object_detection")
     cur = conn.cursor()
-    sql=("SELECT username, password FROM users WHERE username= (%s)")
+    sql=("SELECT username, password FROM users WHERE username= %s AND password= %s")
     cur.execute(sql, user_to_search)
     # Call upon jwt to authenticate user
     user=None
@@ -17,4 +17,4 @@ def fetch_user(user_to_search:str):
     else:
         return user
 
-print(fetch_user("dkani"))
+print(fetch_user("dani", "123456"))
