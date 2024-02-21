@@ -17,7 +17,7 @@ def fetch_user(user_to_search:str, user_pwd:str=None):
         return user
 
 def user_exists(user_to_search:str):
-    user_to_search = (user_to_search)
+    user_to_search = (user_to_search,)
     conn = create_connection("localhost", "root", "", "object_detection")
     cur = conn.cursor()
     sql=("SELECT username FROM users WHERE username= %s")
