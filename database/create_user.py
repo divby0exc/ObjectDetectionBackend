@@ -5,14 +5,15 @@ from user import User
 
 def save(user_obj: User):
     conn = create_connection("localhost", "root", "", "object_detection")
+    cur = conn.cursor()
     vals=(user_obj.get_username(),user_obj.get_pwd())
     sql=("INSERT INTO users "
          "(username, password) "
-         "VALUES (%s, %s)", (user_obj.get_username(),user_obj.get_pwd()).__str__)
-    # "INSERT INTO employees (first_name) VALUES (%s), (%s)"
-    query_to_db(conn, sql)
+         "VALUES (%s, %s)")
+    
+    cur.execute(sql, vals)
     conn.commit()
     
 
-dani = User("dani", "123456")
+dani = User("brobro", "123456")
 save(dani)

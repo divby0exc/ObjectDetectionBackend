@@ -1,6 +1,5 @@
 import mysql.connector
 from mysql.connector import Error
-from execute_queries import query_to_db
 
 def create_connection(host_name, user_name, user_pwd, db=None):
     conn = None

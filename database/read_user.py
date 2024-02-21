@@ -1,8 +1,7 @@
 from create_db_conn import create_connection
-from execute_queries import query_to_db
 from mysql.connector import Error
 
-def fetch_user(user_to_search:str, user_pwd:str):
+def fetch_user(user_to_search:str, user_pwd:str=None):
     user_to_search = (user_to_search, user_pwd)
     conn = create_connection("localhost", "root", "", "object_detection")
     cur = conn.cursor()
@@ -17,4 +16,15 @@ def fetch_user(user_to_search:str, user_pwd:str):
     else:
         return user
 
-print(fetch_user("dani", "123456"))
+def user_exists(user_to_search:str):
+    user_to_search = (user_to_search)
+    conn = create_connection("localhost", "root", "", "object_detection")
+    cur = conn.cursor()
+    sql=("SELECT username FROM users WHERE username= %s")
+    cur.execute(sql, user_to_search)
+    
+    user=None
+    if user_to_search in cur:
+        return True
+    else:
+        return False
