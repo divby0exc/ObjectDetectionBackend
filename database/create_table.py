@@ -5,8 +5,8 @@ def save_table():
     cur=conn.cursor()
     SQL="""CREATE TABLE IF NOT EXISTS users (
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(255) UNIQUE,
-        password LONGBLOB,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        hashed_pwd LONGBLOB NOT NULL,
         created_at DATETIME,
         updated_at DATETIME
     )"""
