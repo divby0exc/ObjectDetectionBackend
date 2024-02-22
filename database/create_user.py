@@ -8,7 +8,7 @@ def save(user_obj: User):
     conn = create_connection("localhost", "root", "", "object_detection")
     cur = conn.cursor()
     sql=("INSERT INTO users "
-        "(username, password, created_at) "
+        "(username, hashed_pwd, created_at) "
         "VALUES (%s, %s, %s)")
     vals=(user_obj.get_username(),user_obj.get_pwd(),datetime.now())
     if user_exists(user_obj.username):
