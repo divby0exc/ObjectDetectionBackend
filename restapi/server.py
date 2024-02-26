@@ -1,7 +1,17 @@
-from flask import Flask
+from flask import Flask, request
 
 app=Flask(__name__)
 
-@app.post("/login")
+@app.route("/login",methods=["GET","POST"])
 def login():
-    pass
+    if request.method =="GET":
+        return "login.html"
+    else:
+        pass
+
+@app.route("/register", methods=["GET","POST"])
+def register():
+    if request.method == "GET":
+        return "register.html"
+    else:
+        pass
