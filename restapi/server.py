@@ -15,3 +15,7 @@ def register():
         return "register.html"
     else:
         pass
+
+@app.post("/logout")
+def logout():
+    pass
