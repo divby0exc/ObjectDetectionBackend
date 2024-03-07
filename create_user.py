@@ -3,6 +3,7 @@ from user import User
 from read_user import user_exists
 from datetime import datetime
 from update_user import update_user
+from authenticate import crypt_pwd
 
 def save(user_obj: User):
     conn = create_connection("localhost", "root", "", "object_detection")
@@ -10,7 +11,7 @@ def save(user_obj: User):
     sql=("INSERT INTO users "
         "(username, hashed_pwd, created_at) "
         "VALUES (%s, %s, %s)")
-    vals=(user_obj.get_username(),user_obj.get_pwd(),datetime.now())
+    vals=(user_obj.get_username(),crypt_pwd(user_obj.get_pwd()),datetime.now())
     if user_exists(user_obj.username):
         update_user(user_obj.password, user_obj.username)
     else:
