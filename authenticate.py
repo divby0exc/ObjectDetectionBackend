@@ -7,10 +7,11 @@ import secrets
 # Generated with secrets
 SIGN_KEY="\x1e\x82#?\xddP\xb5\x8c\xc1\x7f;\xa8\xa6\xcf\xe1<\xcf\xde\xb48\xe2\x8d\x8d\xfc7\xf1\xb8\xbb\xfb\xea!\xc4"
 
+# Returns a token
 def sign_jwt(user_obj:dict):
     # Add exp time
     encoded_jwt = jwt.encode({user_obj.username():user_obj.get_pwd()}, SIGN_KEY, algorithm="HS256")
-    return json.dumps(encoded_jwt)
+    return encoded_jwt
 
 # Need to return an exp time to the UI
 def verify_token(token):
