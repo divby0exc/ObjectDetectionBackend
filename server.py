@@ -17,11 +17,8 @@ def login():
         return json.dumps({"Msg":"Username or Password is incorrect"})
 
 
-@app.route("/register", methods=["GET","POST"])
+@app.post("/register")
 def register():
-    if request.method == "GET":
-        return "register.html"
-    else:
         user=request.json
         save(user.get_username(),user.get_pwd())
         
