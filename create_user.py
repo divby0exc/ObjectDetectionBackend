@@ -19,5 +19,5 @@ def save(user_obj: User):
         conn.commit()
     
 
-dani = User("brobroo", "123457")
-save(dani)
+# dani = User("brobroo", "123457")
+# save(dani)
