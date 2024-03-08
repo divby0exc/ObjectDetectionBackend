@@ -1,8 +1,7 @@
-from create_user import save
+from database import save, fetch_user
 from flask import Flask, request
 from authenticate import sign_jwt, dec_pwd
 from user import User
-from read_user import fetch_user
 import json
 
 app=Flask(__name__)
