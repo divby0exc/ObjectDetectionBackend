@@ -1,4 +1,4 @@
-from database import save, fetch_user
+from database import save, fetch_user, user_exists
 from flask import Flask, request
 from authenticate import sign_jwt, dec_pwd
 from user import User
@@ -20,7 +20,12 @@ def login():
 @app.post("/register")
 def register():
         user=request.json
-        save(user.get_username(),user.get_pwd())
+        if user_exists(user["username"]) is False:
+            new_user = User(user["username"], user["password"])
+            save(new_user)
+            return json.dumps({"Msg":"User registered "+user["username"]})
+        else:
+             return json.dumps({"Msg":"Username alreday exists"})
         
 
 @app.post("/logout")
