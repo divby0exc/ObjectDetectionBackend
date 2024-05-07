@@ -20,6 +20,7 @@ def create_connection(host_name, user_name, user_pwd, db=None):
     
     return conn
 
+# first connection when there is no table
 # query_to_db(create_connection("localhost","root",""))
 
 def save_table():
@@ -66,7 +67,7 @@ def fetch_user(user_to_search:str):
     # Call upon jwt to authenticate user
     user= cur.fetchone()
     if user is None:
-        return "Username or Password not found"
+        return None
     else:
         dec={"username":user[0],"password":user[1]}
         return dec
